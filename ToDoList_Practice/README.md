@@ -24,3 +24,44 @@
 ## Package menu
 ### 구성과 역할
 - __Menu__ 클래스는 프로그램의 메뉴를 띄우는 일종의 프론트엔드 역할을 맡는다. 
+
+# 2강 [ToDoListApp 파일기능 추가(1)](https://www.youtube.com/watch?v=hVeF1-WJZJw&list=PLoJdZ7VvEiRM4lw8htJg7qsDoHILpvfLP&index=2)
+
+## IOExeption Class
+- 스트림, 파일 및 디렉터리를 사용하여 정보에 액세스하는 동안 throw된 예외에 대한 기본 클래스이다.
+- 따라서 파일 기능을 넣을 때는 이 점을 유의해야한다. 
+- throw를 사용하기도 하지만, 파일의 상태(ex 비어있음)를 파악하기 위해서  try catch 문을 활용한다. 
+
+## BufferdReader Class 
+- 버퍼를 사용하여 읽기를 하는 클래스이다. (<-> BufferdWriter)
+- 개행문자만 경계로 인식하고 입력받은 데이터가 String으로 고정된다. 필요에 따라 데이터 가공이 필요하다.
+> currentDate의 타입을 String 으로 변화시킨 이유이다. 
+> StringTokenizer 를 쓴 이유이다. 
+### Buffer
+- 버퍼를 사용하지 않는 입력은 키보드의 입력이 키를 누르는 즉시 바로 프로그램에 전달된다. (쓰레기가 생길 때마다 밖에 버리기)
+- 버퍼를 사용하는 입력은 버퍼가 가득 차거나 개행 문자가 나타나면 한 번에 프로그램에 전달한다. (쓰레기통이 꽉 차면 한번에 밖에 버리기)
+- 하드디스크의 속도가 느리고 데이터 입출력도 시간이 오래걸리기 때문에 버퍼를 두는 것이 더 효율적이고 빠르다. 
+### BufferdReader vs Scanner 
+Scanner 은 띄어쓰기와 개행문자를 경계로 하여 입력 값을 인식한다. 
+또한 원하는 타입의 입력을 받을 수 있다. 
+하지만 버퍼 사이즈가 1024 char이기 때문에 많은 입력을 필요로 할 경우에는 BufferedReader (max = 8192 char) 가 유용하다. 
+
+## StringTokenizer Class
+- 일정한 형식이 정해진 문자열을 나누기 위해 사용한다. 
+Constructor
+1. new StringTokenizer(String) : __띄어쓰기__ 기준으로 문자열을 분리
+2. new StringTokenizer(String,Separator) : __구분자__ 기준으로 문자열을 분리
+3. new StringTokenizer(String,Separator,Bool) : 구분자 또한 토큰에 포함을 시킬지 결정
+
+### BufferedReader 와 StringTokenizer 을 활용하여 파일 읽어오기. 
+```
+BufferedReader br = new BufferedReader(new FileReader(filename));
+String line;
+while((line = br.readLine()) != null) {
+	StringTokenizer st = new StringTokenizer(line,"##");
+	TodoItem item = new TodoItem(st.nextToken(),st.nextToken());
+	item.setCurrent_date(st.nextToken());
+	l.addItem(item);
+}
+br.close();
+```
