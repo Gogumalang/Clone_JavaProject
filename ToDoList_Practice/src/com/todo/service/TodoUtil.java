@@ -1,8 +1,13 @@
 package com.todo.service;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import com.todo.dao.TodoItem;
 import com.todo.dao.TodoList;
+
 
 public class TodoUtil {
 	
@@ -80,5 +85,44 @@ public class TodoUtil {
 		for(TodoItem item : l.getList()) {
 			System.out.println(item.toString());
 		}
+	}
+
+	public static void saveList(TodoList l, String filename)  {
+		try {
+			FileWriter fw = new FileWriter(filename);
+			for(TodoItem item : l.getList()) {
+				fw.write(item.toSaveString());
+			}
+			fw.close();
+			System.out.println("모든 데이터가 저장되었습니다.");
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+			
+		// unhandled exception type IOException이 발생하여서 try catch 문으로 해결했다. 
+		// 또는 함수 명 옆에 throws IOException 을 적어도 해결 가능하다. 
+		
+	}
+
+	public static void loadList(TodoList l, String filename) {
+		try{
+			BufferedReader br = new BufferedReader(new FileReader(filename));
+			String line;
+			int count=0;
+			while((line = br.readLine()) != null) {
+				StringTokenizer st = new StringTokenizer(line,"##");
+				TodoItem item = new TodoItem(st.nextToken(),st.nextToken());
+				item.setCurrent_date(st.nextToken());
+				l.addItem(item);
+				count++;
+			}
+			br.close();
+			System.out.println(count+"개의 항목을 읽었습니다.");
+		}catch(Exception e){
+			System.out.println(filename+" 파일이 없습니다.");
+		}
+		
+		
 	}
 }
