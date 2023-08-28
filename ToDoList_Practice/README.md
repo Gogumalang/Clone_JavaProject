@@ -75,13 +75,34 @@ br.close();
 ## findItem() , findCategory()
 입력값을 __"find <키워드>"__ 의 형식으로 받게 된다. 
 sanner.next()로 받게 되면 공백 이전의 내용인 __find__ 를 반환하게 된다. 
-하지만 여전히 버퍼에는 공백 이후인 __키워드__ 가 남게 된다. 따라서 이 키워드를 저장하기 위해 한번 더 scanner.next()로 변수 키워드에 저장한다. 
+하지만 여전히 버퍼에는 공백 이후인 __키워드__ 가 남게 된다. 따라서 이 키워드를 저장하기 위해 한번 더 scanner.next()로 변수 키워드에 저장한다. 마지막으로 버퍼에 남은 개행문자를 처리하는 nextLine()도 넣어준다. 
 
+###### 이렇게 버퍼 상태가 어떨지 고려하며 입력 함수를 적절히 사용하여야 한다. 
 
+```
+case "find" :
+			String keyword = sc.next(); // 버퍼에 남아있는 키워드를 저장함
+			sc.nextLine(); // 버퍼에 남아있는 개행문자를 제거 
+			TodoUtil.findItem(l,keyword);
+			break;
 
+```
 
-## IOExeption Class
-- 스트림, 파일 및 디렉터리를 사용하여 정보에 액세스하는 동안 throw된 예외에 대한 기본 클래스이다.
-- 따라서 파일 기능을 넣을 때는 이 점을 유의해야한다. 
-- throw를 사용하기도 하지만, 파일의 상태(ex 비어있음)를 파악하기 위해서  try catch 문을 활용한다. 
+## HashSet (Set Interface)
+- List에 중복을 제거하기 위해 주로 쓰이는 클래스. 
+- 저장된 리스트를 HashSet을 선언할 때 변수로 넣으면 중복되지 않는 문자들만 남는다. 
+- HashSet 데이터를 다시 리스트에 넣으면 중복이 제거된 리스트가 완성된다. 
+- 순서는 고려하지 않고, 오름차순으로 정렬하고 싶다면 TreeSet을 사용한다. 
+
+```
+List<String> originCate = new ArrayList<String>();
+
+for(TodoItem item : l.getList()) {
+	originCate.add(item.getCategory());
+}
+
+HashSet<String> distionctData = new HashSet<String>(originCate);
+List<String> resultList = new ArrayList<String>(distionctData);
+
+```
 
