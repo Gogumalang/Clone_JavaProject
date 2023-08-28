@@ -67,3 +67,21 @@ while((line = br.readLine()) != null) {
 br.close();
 ```
 
+# 4강 [ToDoListApp 기능 추가하기](https://www.youtube.com/watch?v=zka3w5dXcQE&list=PLoJdZ7VvEiRM4lw8htJg7qsDoHILpvfLP&index=4)
+
+## 변수 추가 (카테고리, 마감일자)
+- 기존 데이터에 멤버 변수를 추가하게 되면, 이것을 다루는 모든 기능들을 추가된 멤버 변수에 맞게 수정해줘야 한다. 
+
+## findItem() , findCategory()
+입력값을 __"find <키워드>"__ 의 형식으로 받게 된다. 
+sanner.next()로 받게 되면 공백 이전의 내용인 __find__ 를 반환하게 된다. 
+하지만 여전히 버퍼에는 공백 이후인 __키워드__ 가 남게 된다. 따라서 이 키워드를 저장하기 위해 한번 더 scanner.next()로 변수 키워드에 저장한다. 
+
+
+
+
+## IOExeption Class
+- 스트림, 파일 및 디렉터리를 사용하여 정보에 액세스하는 동안 throw된 예외에 대한 기본 클래스이다.
+- 따라서 파일 기능을 넣을 때는 이 점을 유의해야한다. 
+- throw를 사용하기도 하지만, 파일의 상태(ex 비어있음)를 파악하기 위해서  try catch 문을 활용한다. 
+

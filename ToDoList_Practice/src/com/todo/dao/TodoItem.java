@@ -10,13 +10,17 @@ public class TodoItem {
 	private String title;
 	private String desc;
 	private String current_date;
+	private String category;
+	private String due_date;
 	SimpleDateFormat simple = new SimpleDateFormat("yyyy/MM/dd KK:mm:ss");
-	public TodoItem(String title, String desc) {
+	public TodoItem(String title, String desc,String category,String due_date) {
 		// instance 를 초기할 때 하는 것이다. 
 		// this 를 쓴 이유는 중복되는 것을 헷갈리지 않게 하기 위함이다. 
 		// 또한 일부러 중복되도록 씀으로서 멤버변수를 다루는 것을 알기쉽게 가독성을 높인다. 
 		this.title=title;
 		this.desc=desc;
+		this.category = category;
+		this.due_date = due_date;
 		this.current_date=simple.format(new Date());
 	}
 	
@@ -35,6 +39,22 @@ public class TodoItem {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
+
+	public String getCategory() {
+		return category;
+	}
+	
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getDue_date() {
+		return due_date;
+	}
+	
+	public void setDue_date(String due_date) {
+		this.due_date = due_date;
+	}
 	
 	public String getCurrent_date() {
 		return current_date;
@@ -47,11 +67,11 @@ public class TodoItem {
 	@Override
 	// 기존에 존재하던것을 각색할 때는 override (뭐라고 부르더라) 를 붙인다. 
 	public String toString() {
-		return "[" + title + "]" + desc + " - " + current_date;
+		return "[" + category + "] " + title + " - " + desc + " - " + due_date + " - " +current_date;
 	}
 
 	public String toSaveString() {
-		return title + "##" + desc + "##" + current_date+"\n";
+		return category + "##"+ title + "##" + desc + "##" + due_date + "##"+ current_date+"\n";
 	}
 	
 	

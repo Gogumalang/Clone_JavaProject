@@ -29,6 +29,10 @@ public class TodoList {
 		// 왜 이거는 새로운 리스트로 리턴을 하는가? 
 		return new ArrayList<TodoItem>(list);
 	}
+
+	public int getSize() {
+		return list.size();
+	}
 	
 	public void sortByName() {
 		Collections.sort(list, new TodoSortByName());
@@ -40,6 +44,10 @@ public class TodoList {
 	
 	public void sortByDate() {
 		Collections.sort(list, new TodoSortByDate());
+	}
+
+	public TodoItem getItem(int index) {
+		return list.get(index-1);
 	}
 	
 	public int indexOf(TodoItem t) {
